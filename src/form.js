@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 
-function marketing() {
+function Formulario() {
+    const inversiones = {
+        tv: undefined,
+        radio: undefined,
+        newspaper: undefined,
+    };
+
+}
+function Marketing() {
+
     const [tv, setTv] = useState('');
     const [radio, setRadio] = useState('');
     const [newspaper, setNewspaper] = useState('');
@@ -10,14 +19,18 @@ function marketing() {
     const insertarRadio = ({ target }) => { setRadio(target.value) };
     const insertarNewspaper = ({ target }) => { setNewspaper(target.value) };
 
-    function handleSubmit() {
+    function handleSubmit(e, data) {
+        e.preventDefault();
+        inversiones["tv"] = data.tv;
+        inversiones["radio"] = data.radio;
+        inversiones["newspaper"] = data.newspaper;
         console.log('tv :' + tv)
         console.log('radio :' + radio)
         console.log('newspaper :' + newspaper)
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             <label>
                 Inversión en TV:
                 <input type="text" onChange={insertarTv} />
@@ -30,7 +43,9 @@ function marketing() {
                 Inversión en Newspaper:
                 <input type="text" onChange={insertarNewspaper} />
             </label>
-            <input type="submit" value="Submit" />
+            <input type="submit" value="submit" onClick={handleSubmit} />
         </form>
     );
 }
+
+export default Marketing;
