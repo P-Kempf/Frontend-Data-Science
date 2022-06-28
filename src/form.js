@@ -1,13 +1,6 @@
 import React, { useState } from 'react';
 
-function Formulario() {
-    const inversiones = {
-        tv: undefined,
-        radio: undefined,
-        newspaper: undefined,
-    };
 
-}
 function Marketing() {
 
     const [tv, setTv] = useState('');
@@ -19,33 +12,43 @@ function Marketing() {
     const insertarRadio = ({ target }) => { setRadio(target.value) };
     const insertarNewspaper = ({ target }) => { setNewspaper(target.value) };
 
-    function handleSubmit(e, data) {
-        e.preventDefault();
-        inversiones["tv"] = data.tv;
-        inversiones["radio"] = data.radio;
-        inversiones["newspaper"] = data.newspaper;
-        console.log('tv :' + tv)
-        console.log('radio :' + radio)
-        console.log('newspaper :' + newspaper)
-    }
 
-    return (
-        <form>
-            <label>
-                Inversión en TV:
-                <input type="text" onChange={insertarTv} />
-            </label>
-            <label>
-                Inversión en Radio:
-                <input type="text" onChange={insertarRadio} />
-            </label>
-            <label>
-                Inversión en Newspaper:
-                <input type="text" onChange={insertarNewspaper} />
-            </label>
-            <input type="submit" value="submit" onClick={handleSubmit} />
-        </form>
-    );
+    const modelo = {
+        tv: undefined,
+        radio: undefined,
+        newspaper: undefined,
+    }
+        function handleSubmit(e) {
+            e.preventDefault();
+    modelo["tv"] = tv;
+    modelo["radio"] = radio;
+    modelo["newspaper"] = newspaper;
+    /*         console.log('tv :' + tv)
+            console.log('radio :' + radio)
+            console.log('newspaper :' + newspaper) */
+    console.log(tv);
+    console.log(radio);
+    console.log(newspaper);
+    console.log(modelo);
+}
+
+return (
+    <form>
+        <label>
+            Inversión en TV:
+            <input type="text" onChange={insertarTv} />
+        </label>
+        <label>
+            Inversión en Radio:
+            <input type="text" onChange={insertarRadio} />
+        </label>
+        <label>
+            Inversión en Newspaper:
+            <input type="text" onChange={insertarNewspaper} />
+        </label>
+        <input type="submit" value="submit" onClick={handleSubmit} />
+    </form>
+);
 }
 
 export default Marketing;
