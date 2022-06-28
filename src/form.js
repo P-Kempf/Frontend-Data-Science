@@ -18,37 +18,43 @@ function Marketing() {
         radio: undefined,
         newspaper: undefined,
     }
-        function handleSubmit(e) {
-            e.preventDefault();
-    modelo["tv"] = tv;
-    modelo["radio"] = radio;
-    modelo["newspaper"] = newspaper;
-    /*         console.log('tv :' + tv)
-            console.log('radio :' + radio)
-            console.log('newspaper :' + newspaper) */
-    console.log(tv);
-    console.log(radio);
-    console.log(newspaper);
-    console.log(modelo);
-}
+    function handleSubmit(e) {
+        e.preventDefault();
+        modelo["tv"] = tv;
+        modelo["radio"] = radio;
+        modelo["newspaper"] = newspaper;
 
-return (
-    <form>
-        <label>
-            Inversión en TV:
-            <input type="text" onChange={insertarTv} />
-        </label>
-        <label>
-            Inversión en Radio:
-            <input type="text" onChange={insertarRadio} />
-        </label>
-        <label>
-            Inversión en Newspaper:
-            <input type="text" onChange={insertarNewspaper} />
-        </label>
-        <input type="submit" value="submit" onClick={handleSubmit} />
-    </form>
-);
+        fetch("http://localhost:3050/preguntas/", {
+      method: "POST",
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(modelo),
+    }).then((response) => response.json());
+
+    console.log(modelo);
+
+/*         console.log(tv);
+        console.log(radio);
+        console.log(newspaper);
+        console.log(modelo); */
+    }
+
+    return (
+        <form>
+            <label>
+                Inversión en TV:
+                <input type="text" onChange={insertarTv} />
+            </label>
+            <label>
+                Inversión en Radio:
+                <input type="text" onChange={insertarRadio} />
+            </label>
+            <label>
+                Inversión en Newspaper:
+                <input type="text" onChange={insertarNewspaper} />
+            </label>
+            <input type="submit" value="submit" onClick={handleSubmit} />
+        </form>
+    );
 }
 
 export default Marketing;
