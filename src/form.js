@@ -13,14 +13,6 @@ function Marketing() {
     const [newspaper, setNewspaper] = useState('');
     const [resultado, setResultado] = useState('');
 
-    /*     async function resultadoMarketing() {
-            let contactarResultado = await fetch(``);
-            let respuesta = await JSON.parse(contactarResultado);
-            setResultado(respuesta);
-        }
-    
-        resultadoMarketing() */
-
     const modelo = {
         tv: undefined,
         radio: undefined,
@@ -28,17 +20,15 @@ function Marketing() {
     }
     function handleSubmit(e) {
         e.preventDefault();
-        modelo["tv"] = tv;
+        modelo["TV"] = tv;
         modelo["radio"] = radio;
         modelo["newspaper"] = newspaper;
-
         fetch("http://mariochack.pythonanywhere.com/predict", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(modelo)
         }).then((response) => response.json())
-            .then((json) => setResultado(json))
-        console.log(modelo);
+            .then((json) => setResultado(parseFloat(json.Prediction).toFixed(2)))
     }
 
     return (
@@ -66,7 +56,7 @@ function Marketing() {
             </form>
             <Fieldset className="resultado" id='resultado' legend="Resultado de la inverion en Marketing">
                 <h1>
-                    Resultado: {resultado}
+                    Resultado: {resultado} €
                 </h1>
 
             </Fieldset>
