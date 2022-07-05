@@ -6,13 +6,20 @@ import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import { Fieldset } from 'primereact/fieldset';
 
-
-
 function Marketing() {
 
     const [tv, setTv] = useState('');
     const [radio, setRadio] = useState('');
     const [newspaper, setNewspaper] = useState('');
+    const [resultado, setResultado] = useState('');
+
+    /*     async function resultadoMarketing() {
+            let contactarResultado = await fetch(``);
+            let respuesta = await JSON.parse(contactarResultado);
+            setResultado(respuesta);
+        }
+    
+        resultadoMarketing() */
 
     const modelo = {
         tv: undefined,
@@ -25,14 +32,13 @@ function Marketing() {
         modelo["radio"] = radio;
         modelo["newspaper"] = newspaper;
 
-        fetch("http://localhost:3050/preguntas/", {
+        fetch("http://mariochack.pythonanywhere.com/predict", {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(modelo),
-        }).then((response) => response.json());
-
+            body: JSON.stringify(modelo)
+        }).then((response) => response.json())
+            .then((json) => setResultado(json))
         console.log(modelo);
-
     }
 
     return (
@@ -40,7 +46,6 @@ function Marketing() {
             <h2>Calculadora de Inversión en Marketing</h2>
             <form>
                 <div id="contenedor-formulario">
-
                     <span className="p-float-label">
                         <InputText id="inversiontv" value={tv} onChange={(e) => setTv(e.target.value)} autoFocus />
                         <label htmlFor="inversiontv">Inversión en TV</label>
@@ -59,9 +64,13 @@ function Marketing() {
 
                 </div>
             </form>
-            <Fieldset id='resultado' legend="Resultado de la inverion en Marketing">
-                
+            <Fieldset className="resultado" id='resultado' legend="Resultado de la inverion en Marketing">
+                <h1>
+                    Resultado: {resultado}
+                </h1>
+
             </Fieldset>
+
         </div>
     );
 }
